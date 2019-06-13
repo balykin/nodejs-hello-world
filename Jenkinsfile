@@ -4,19 +4,15 @@ libraries {
  lib('lib-demo@master') 
 } 
   stages {
-    stage ('dokerfile') {
-        sh "touch dockerfile"
-    }
     stage ('build image') {
-        sh "docker build . -t getintodevops-hellonode:1"
+        sh "docker build . -t hellonode:1"
     }
     stage ('demo') {
       agent {
-        docker { image 'node:7-alpine' }
+        docker { image 'hellonode' }
       }
       steps {
         sh "node --version"
-        sh "node index.js"
         }
     }    
   }
